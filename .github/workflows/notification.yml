@@ -18,6 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: test
-        run: echo "::set-env name=MY_SECRET::${{secrets.MY_SECRET}}"
+        run: echo "::set-env name=MY_SECRET::${{ secrets.MY_SECRET }}"
       - name: verify
-        run: echo $MY_SECRET
+        run: echo "$MY_SECRET is mine"
