@@ -12,37 +12,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  slackNotification:
-    name: Slack Notification
+  Variables:
+    name: Variables Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2.0.2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: GitHub Actions
-          SLACK_TITLE: ${{ github.workflow }}
-          SLACK_MESSAGE: デプロイを開始します 🚀
-          SLACK_ICON: https://avatars0.githubusercontent.com/u/44036562?s=32&v=4
-      - name: Fail Job
-        run: exit 1
-      - if: success()
-        name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2.0.2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: GitHub Actions
-          SLACK_TITLE: ${{ github.workflow }}
-          SLACK_MESSAGE: デプロイが完了しました ✅
-          SLACK_ICON: https://avatars0.githubusercontent.com/u/44036562?s=32&v=4
-      - if: failure()
-        name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2.0.2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: GitHub Actions
-          SLACK_TITLE: ${{ github.workflow }}
-          SLACK_MESSAGE: デプロイが失敗しました ⚠
-          SLACK_COLOR: danger
-          SLACK_ICON: https://avatars0.githubusercontent.com/u/44036562?s=32&v=4
+      - name: test
+        run: echo "::set-env name=MY_SECRET::${{secrets.MY_SECRET}}"
+      - name: verify
+        run: echo $MY_SECRET
